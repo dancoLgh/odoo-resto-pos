@@ -1,5 +1,13 @@
 # Changelog
 
+## V1.0.2
+
+✅ Cambios Relevantes:
+- `src/services/updateService.js`: se corrigió el regex de detección de tags para que sea case-insensitive (`/^v/i`) y se añadió logging adicional para depuración.
+- `src/components/UpdateChecker.js`: se añadió el flujo de actualización obligatoria con pantalla "Buscando actualizaciones...", diálogo comparando versiones, tamaño de APK, notas, barra de progreso y botones "Salir" / "Actualizar Ahora"; el botón atrás ahora cierra la app mientras la actualización es obligatoria y se muestra el aviso "La app se cerrará si no actualizas".
+- `App.js`: la app ahora ejecuta `UpdateChecker` antes de continuar al login; solo si no hay actualización disponible se avanza al flujo normal (Splash → Buscar actualización → Actualizar o continuar → Login).
+- `app.json`: el `splash` usa `resizeMode: "contain"` para mostrar el logo completo.
+
 ## V1.0.1
 
 ✅ Cambios Realizados:
