@@ -1,5 +1,87 @@
 # Changelog
 
+## V1.0.9
+
+### Acceso por PIN
+- Se eliminó el envío automático al cuarto dígito: ahora se admiten PIN de hasta 12 dígitos y el usuario confirma el valor manualmente.
+- Se normalizan los espacios accidentales tanto en el PIN almacenado como en el ingresado antes de compararlos.
+- La aplicación muestra el error real devuelto por Odoo, como sesión expirada, POS no configurado o sesión de caja cerrada, en lugar de indicar siempre "PIN incorrecto".
+- El indicador `has_pin` utiliza la misma normalización que la validación para evitar solicitudes innecesarias.
+
+### Interfaz
+- El modal de PIN ahora es desplazable y adaptable a teléfonos pequeños.
+- Se agregó el botón "Confirmar PIN" y protección contra envíos simultáneos.
+
+## V1.0.8
+
+### Combos y Productos
+- Se agregó soporte para configurar combos desde la aplicación móvil, seleccionar una opción por grupo y aplicar los recargos correspondientes.
+- Se conserva la relación entre la línea principal del combo y sus componentes al guardar el pedido.
+- Los componentes se muestran agrupados debajo del producto principal y no se contabilizan como productos independientes.
+- Se excluyen del catálogo y de los productos más vendidos los artículos archivados o no disponibles para el POS móvil.
+- Se bloquea el aumento de cantidades y la creación de combos con componentes inválidos, manteniendo la posibilidad de reducir líneas existentes.
+
+### Pedidos y Sincronización
+- La aplicación envía explícitamente las líneas eliminadas al actualizar una orden.
+- El servidor preserva líneas que no fueron enviadas como eliminadas, evitando pérdidas por datos desactualizados o cambios concurrentes.
+
+### Facturación y Configuración
+- Se integró la política de facturación SIFEN para determinar cuándo facturar, asignar el cliente predeterminado cuando corresponde y devolver los datos del comprobante después del pago.
+- Se restauró la configuración del cliente predeterminado del POS móvil.
+- Se restauraron los campos que controlan atributos y valores ocultos en el selector de productos.
+
+## V1.0.7
+
+### Pedidos y Productos
+- Se preservan individualmente las líneas que no deben agruparse, como productos de buffet, mediante identificadores únicos durante la edición, visualización y sincronización.
+- Se conservan correctamente las notas de cada línea en pedidos, impresiones y cancelaciones, incluyendo compatibilidad con datos anteriores.
+- Los controles de cantidad respetan la configuración que permite o impide agrupar un producto.
+- La carga de productos y atributos ahora aísla errores por producto, mantiene un orden estable de categorías y dispone de un fallback cuando faltan campos opcionales de atributos.
+
+### Pagos e Impresión
+- Los pagos móviles utilizan el flujo nativo de procesamiento de órdenes de Odoo para generar correctamente movimientos de inventario, picking y facturación.
+- La impresión remota completa los datos faltantes del cliente, incluidos RUC, teléfono, dirección y alias, antes de generar el comprobante.
+
+### Actualizaciones Técnicas
+- Se actualizó Expo a `54.0.33` y se incorporó `expo-font` con su configuración nativa.
+
+## V1.0.6
+
+### Reimpresión de Comprobantes
+- Se agregó una pantalla para buscar y reimprimir tickets o facturas de órdenes pagadas de la sesión actual.
+- La nueva pantalla es accesible desde el icono de impresión del encabezado y permite actualizar la lista antes de imprimir.
+- La reimpresión obtiene una copia actualizada de la orden desde el servidor para evitar comprobantes con datos anteriores al cobro.
+
+### Flujo Posterior al Pago
+- Se agregó un botón para imprimir el ticket o la factura, según el tipo de comprobante, en la pantalla de pago exitoso.
+- La configuración de impresión automática continúa disponible para imprimir inmediatamente después del cobro.
+- Se conserva el identificador de la orden cobrada para enviar la impresión a la orden correcta.
+- Se evita iniciar más de una impresión al mismo tiempo.
+- La actualización de una orden sin apodo ya no elimina el apodo existente.
+
+### Backend
+- Se agregó un endpoint autenticado para consultar las órdenes pagadas, finalizadas o facturadas de la sesión actual.
+- Las impresiones iniciadas desde la pantalla posterior al pago quedan registradas para auditoría.
+
+## V1.0.5
+
+### Rendimiento y Sincronización
+- Se rediseñó la sincronización de pedidos para evitar bloqueos y solicitudes simultáneas.
+- Las cargas se cancelan durante interacciones sensibles y el sondeo se pausa mientras el usuario selecciona productos.
+- La lista de pedidos evita renderizados cuando los datos recibidos no cambiaron.
+- Se optimizaron los cálculos de mesas y productos y se compactó el historial de notificaciones para reducir el uso de memoria.
+
+### Catálogo e Interfaz
+- Se agregó una vista predeterminada del menú configurable y persistente entre los modos de imágenes y lista.
+- Se optimizaron tarjetas, buscador y categorías para tablet y se mejoró la resolución de las imágenes de productos.
+- Se mejoró el comportamiento del teclado, el desplazamiento y el cierre de modales, especialmente en Android.
+
+### Impresión y Órdenes
+- Se agregó la opción de imprimir automáticamente después del cobro o solicitar confirmación antes de imprimir el ticket o la factura.
+- Se incorporó la búsqueda y visualización del número POS de la orden.
+- Las referencias de órdenes móviles utilizan un prefijo configurable y recurren a `MOB` cuando no existe configuración.
+- El resultado de la impresión posterior al pago se registra en el historial de la orden para facilitar su auditoría.
+
 ## V1.0.4
 
 ### Mejoras de Usabilidad (UX)
