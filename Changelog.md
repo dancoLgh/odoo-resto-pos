@@ -1,5 +1,25 @@
 # Changelog
 
+## V1.0.10
+
+### Cobro dividido
+- Se agregó la selección de productos y cantidades antes de cobrar una cuenta, con opción de cobrar el total completo.
+- La aplicación consulta el importe de la selección antes de abrir el cobro y bloquea la división cuando ya existen pagos parciales.
+- Se mejora el flujo de pagos parciales y se evita procesar respuestas de sincronización desactualizadas.
+
+### Acceso de empleados
+- Se incorporó un selector rápido de empleados desde el encabezado, sin salir de la mesa o el pedido actual.
+- El cambio rápido solicita PIN, no permite seleccionar empleados sin PIN configurado y muestra bloqueos temporales ante intentos fallidos.
+- La selección inicial ahora muestra el estado de la sesión de Punto de Venta y evita accesos cuando está cerrada.
+
+### Catálogo e interfaz
+- Se agregó el ordenamiento configurable de productos: predeterminado, precio ascendente, precio descendente y nombre.
+- El orden seleccionado se aplica en categorías, búsqueda y la vista de todos los productos.
+- Se compactaron cabeceras y buscadores, y se mejoró el comportamiento de modales durante acciones no cancelables.
+
+### Compatibilidad
+- Las funciones de cambio rápido por PIN y cobro dividido requieren actualizar el módulo backend DawnPy POS Mobile a una versión compatible.
+
 ## V1.0.9
 
 ### Acceso por PIN
